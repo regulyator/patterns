@@ -1,0 +1,3 @@
+rootProject.name = 'patterns-showcase'
+include 'command-pattern'
+
