@@ -1,11 +1,9 @@
 package com.regulyator.service.impl;
 
 import com.regulyator.entity.Citizen;
-import com.regulyator.mapper.CitizenMapper;
 import com.regulyator.repository.CitizenRepository;
 import com.regulyator.service.EntityService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 @Component

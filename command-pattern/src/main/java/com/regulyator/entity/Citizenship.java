@@ -12,7 +12,7 @@ import org.springframework.data.relational.core.mapping.Table;
 @Setter
 @EqualsAndHashCode(of = "id")
 @Table("Citizenship")
-public class Citizenship implements StorageEntity{
+public class Citizenship implements StorageEntity {
     @Id
     private final long id;
     private final long idCitizen;

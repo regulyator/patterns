@@ -1,20 +1,17 @@
 package com.regulyator.dto.request;
 
-import com.regulyator.dto.*;
+import com.regulyator.dto.CitizenDto;
+import com.regulyator.dto.CitizenshipDto;
+import com.regulyator.dto.HousingDto;
 import lombok.Builder;
 import lombok.Data;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Data
 @Builder
 public class CreateCitizenRequestDto {
-    @NotNull
     private final CitizenDto citizen;
-    @NotEmpty
     private final List<CitizenshipDto> citizenShips;
-    @NotEmpty
     private final List<HousingDto> housings;
 }
