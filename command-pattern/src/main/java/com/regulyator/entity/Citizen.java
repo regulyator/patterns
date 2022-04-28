@@ -14,8 +14,8 @@ import org.springframework.data.relational.core.mapping.Table;
 @Table("Citizen")
 public class Citizen implements StorageEntity{
     @Id
-    private final long id;
-    private final String name;
+    private long id;
+    private String name;
     private boolean hasFreedom;
-    private long idIncome;
+    private int incomeValue;
 }

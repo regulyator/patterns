@@ -3,6 +3,7 @@ package com.regulyator.dto;
 import lombok.Builder;
 import lombok.Data;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 @Data
@@ -10,4 +11,8 @@ import javax.validation.constraints.NotNull;
 public class CitizenDto {
     @NotNull
     private final String name;
+    @NotNull
+    private Boolean hasFreedom;
+    @Min(1000)
+    private Integer incomeValue;
 }

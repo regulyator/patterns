@@ -5,7 +5,5 @@ import com.regulyator.entity.Citizen;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
-public interface CitizenMapper {
-    Citizen fromDto(CitizenDto citizenDto);
-    CitizenDto toDto(Citizen citizen);
+public interface CitizenMapper extends DtoMapper<Citizen, CitizenDto> {
 }

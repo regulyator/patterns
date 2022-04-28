@@ -15,10 +15,6 @@ public class CreateCitizenRequestDto {
     private final CitizenDto citizen;
     @NotEmpty
     private final List<CitizenshipDto> citizenShips;
-    @NotNull
-    private final Boolean freedom;
     @NotEmpty
     private final List<HousingDto> housings;
-    @NotNull
-    private final IncomeDto income;
 }
