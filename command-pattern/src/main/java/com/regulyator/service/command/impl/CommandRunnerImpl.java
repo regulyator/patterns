@@ -22,7 +22,11 @@ public class CommandRunnerImpl implements CommandRunner<StorageEntity> {
     }
 
     @Override
-    public void undo() {
-        commands.pop().rollBack();
+    public boolean undo() {
+        if(commands.size() > 0) {
+            commands.poll().rollBack();
+            return true;
+        }
+        return false;
     }
 }

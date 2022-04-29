@@ -5,13 +5,13 @@ import com.regulyator.entity.Citizen;
 import com.regulyator.entity.Citizenship;
 import com.regulyator.entity.Housing;
 import com.regulyator.entity.StorageEntity;
+import com.regulyator.exception.CitizenCreationException;
 import com.regulyator.mapper.CitizenMapper;
 import com.regulyator.mapper.CitizenshipMapper;
 import com.regulyator.mapper.HousingMapper;
 import com.regulyator.service.CitizenApiService;
 import com.regulyator.service.EntityService;
 import com.regulyator.service.command.CommandRunner;
-import com.regulyator.service.command.DaoCommand;
 import com.regulyator.service.command.impl.CitizenSaveCommand;
 import com.regulyator.service.command.impl.CitizenshipSaveCommand;
 import com.regulyator.service.command.impl.CommandRunnerImpl;
@@ -20,7 +20,6 @@ import lombok.AllArgsConstructor;
 import lombok.NonNull;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
@@ -43,20 +42,29 @@ public class CitizenApiServiceImpl implements CitizenApiService {
                 .map(housingMapper::fromDto)
                 .collect(Collectors.toList());
 
-        CommandRunner<StorageEntity> runner = new CommandRunnerImpl();
+        CommandRunner<StorageEntity> entityCommandRunner = new CommandRunnerImpl();
 
-        DaoCommand<Citizen> citizenCommand = new CitizenSaveCommand(citizenService, citizen);
-        List<DaoCommand<Citizenship>> citizenShipCommands = citizenShips.stream()
-                .map(citizenship -> new CitizenshipSaveCommand(citizenshipService, citizenship))
-                .collect(Collectors.toList());
-        List<DaoCommand<Housing>> housingCommands = housings.stream()
-                .map(housing -> new HousingSaveCommand(housingService, housing))
-                .collect(Collectors.toList());
-
-        var createdCitizen = runner.execute(citizenCommand);
-        if(createdCitizen.getId() != 0) {
-
+        try {
+            var createdCitizen = entityCommandRunner
+                    .execute(new CitizenSaveCommand(citizenService, citizen));
+            if (createdCitizen.getId() != 0) {
+                var idCitizen = createdCitizen.getId();
+                citizenShips.forEach(citizenship -> {
+                    citizenship.setIdCitizen(idCitizen);
+                    entityCommandRunner.execute(new CitizenshipSaveCommand(citizenshipService, citizenship));
+                });
+                housings.forEach(housing -> {
+                    housing.setIdCitizen(idCitizen);
+                    entityCommandRunner.execute(new HousingSaveCommand(housingService, housing));
+                });
+            }
+            return true;
+        } catch (CitizenCreationException ex) {
+            while (entityCommandRunner.undo()) {
+                entityCommandRunner.undo();
+            }
+            return false;
         }
-        return false;
+
     }
 }

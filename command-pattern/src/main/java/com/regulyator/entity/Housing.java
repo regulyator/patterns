@@ -14,7 +14,7 @@ import org.springframework.data.relational.core.mapping.Table;
 @Table("Housing")
 public class Housing implements StorageEntity {
     @Id
-    private final long id;
-    private final long idCitizen;
-    private final String address;
+    private long id;
+    private long idCitizen;
+    private String address;
 }
