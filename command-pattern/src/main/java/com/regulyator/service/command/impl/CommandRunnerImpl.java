@@ -23,7 +23,7 @@ public class CommandRunnerImpl implements CommandRunner<StorageEntity> {
 
     @Override
     public boolean undo() {
-        if(commands.size() > 0) {
+        if (!commands.isEmpty()) {
             commands.poll().rollBack();
             return true;
         }

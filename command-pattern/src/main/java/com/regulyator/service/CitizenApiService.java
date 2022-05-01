@@ -1,9 +1,9 @@
 package com.regulyator.service;
 
-import com.regulyator.dto.CitizenDto;
 import com.regulyator.dto.request.CreateCitizenRequestDto;
+import com.regulyator.dto.response.CreateCitizenResponseDto;
 
 public interface CitizenApiService {
 
-    boolean createCitizen(CreateCitizenRequestDto createCitizenRequestDto);
+    CreateCitizenResponseDto createCitizen(CreateCitizenRequestDto createCitizenRequestDto);
 }

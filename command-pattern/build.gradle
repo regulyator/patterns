@@ -1,8 +1,10 @@
 dependencies {
-    testRuntimeOnly 'com.h2database:h2'
+    runtimeOnly 'com.h2database:h2'
     implementation 'org.springframework.boot:spring-boot-starter'
     implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
     implementation 'org.mapstruct:mapstruct:1.4.2.Final'
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
     annotationProcessor 'org.mapstruct:mapstruct-processor:1.4.2.Final'
 }
